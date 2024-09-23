@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='raven.ico') }}" rel="shortcut icon" />
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
+    <title>Challenge &ndash; {{ challenge }}</title>
+
+    <style>
+        #answer {
+            font-family: monospace;
+            text-align: center;
+            font-size: 60px;
+        }
+
+        #copy {
+            color: #bfbfc7;
+            text-align: center;
+            width: 120px;
+            height: 40px;
+            font-size: 16px;
+            background-color: #272a3d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #copy:hover {
+            background-color: #575a6d;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body class="mw-800">
+    <header>
+        <nav>
+            <a href="/challenge" class="button">Generate challenge</a>
+        </nav>
+    </header>
+    <h1 id="answer">{{ answer }}</h1>
+
+    <div>
+        People who visit this link should see the same number!
+    </div>
+
+    <div>
+        <a href="{{ link }}">{{ link }}</a>
+    </div>
+    <div>
+        <button id="copy" onClick="copyToClipboard('{{ link }}')">Copy link</button>
+    </div>
+    <div>
+        Authenticated as {{ crsid }} (<a href="/logout">logout</a>)
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            if (navigator.clipboard === undefined) {
+                alert("HTTPS required for clipboard!")
+            }
+            navigator.clipboard.writeText(text)
+            document.getElementById("copy").innerText = "Copied!"
+        }
+    </script>
+</body>
+
+</html>
